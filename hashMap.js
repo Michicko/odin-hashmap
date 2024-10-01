@@ -181,6 +181,7 @@ class HashMap {
   }
 
   getMap() {
+    console.log(this.buckets)
     return this.buckets;
   }
 }
