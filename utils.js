@@ -114,3 +114,25 @@ export const getListEntries = (head) => {
 
   return entries;
 };
+
+export const handleSet = (key, value, buckets, size) => {
+  const hashCode = hash(key, size);
+  let bucketNode;
+
+  if (buckets.length > 0) {
+    bucketNode = buckets[hashCode];
+  }
+
+  if (bucketNode) {
+    if (bucketNode.key !== key) {
+      // append entry to linkedList
+      buckets[hashCode] = appendList(key, value, buckets[hashCode]);
+    } else {
+      // replace value of entry if it exists
+      buckets[hashCode] = findReplaceValue(key, value, buckets[hashCode]);
+    }
+  } else {
+    // add new entry
+    buckets[hashCode] = createNode(key, value);
+  }
+};

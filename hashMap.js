@@ -1,38 +1,14 @@
 import hash from "./hash.js";
 import {
-  appendList,
   countList,
-  createNode,
   find,
-  findReplaceValue,
   getListEntries,
   getListKeys,
   getListValues,
+  handleSet,
   removeFromList,
   unshiftList,
 } from "./utils.js";
-
-const handleSet = (key, value, buckets, size) => {
-  const hashCode = hash(key, size);
-  let bucketNode;
-
-  if (buckets.length > 0) {
-    bucketNode = buckets[hashCode];
-  }
-
-  if (bucketNode) {
-    if (bucketNode.key !== key) {
-      // append entry to linkedList
-      buckets[hashCode] = appendList(key, value, buckets[hashCode]);
-    } else {
-      // replace value of entry if it exists
-      buckets[hashCode] = findReplaceValue(key, value, buckets[hashCode]);
-    }
-  } else {
-    // add new entry
-    buckets[hashCode] = createNode(key, value);
-  }
-};
 
 class HashMap {
   size = 16;
@@ -178,11 +154,6 @@ class HashMap {
     });
 
     backup = null;
-  }
-
-  getMap() {
-    console.log(this.buckets)
-    return this.buckets;
   }
 }
 
